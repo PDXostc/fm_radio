@@ -14,6 +14,7 @@ endif
 wgtPkg: clean
 	cp -rf ../DNA_common .
 	zip -r $(PROJECT).wgt $(WRT_FILES)
+	cp $(PROJECT).wgt /home/app/
 
 config:
 	scp setup/weston.ini root@$(TIZEN_IP):/etc/xdg/weston/
@@ -24,15 +25,20 @@ wgt:
 	zip -r $(PROJECT).wgt $(WRT_FILES)
 
 run: install
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher"
+	mkdir -p /tmp/pulseaudio
+	export LD_LIBRARY_PATH=/usr/local/lib/
+	xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher -d
+#	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher"
 
 debug: install
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -d 9888"
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalk-launcher -d"
 
-install: deploy
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/DNA_FMRADIO.wgt"
+install: wgtPkg
+	xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u
+	xwalkctl -i /home/app/DNA_FMRADIO.wgt
+#	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
+#	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/DNA_FMRADIO.wgt"
 
 $(PROJECT).wgt : wgt
 
