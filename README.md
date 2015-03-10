@@ -1,5 +1,27 @@
 # X004_FMRadio
 Code for FM_Radio including Wigit app, Xwalk extension and service
+
+Copyright (c) 2014, Intel Corporation, Jaguar Land Rover
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Name: AGL App Suite Release
+Version: XW_TizenIVI3_0_01FEB_AGL_05MAR2015
+Maintainer: Art McGee <amcgee7@jaguarlandrover.com>
+Mailing list: dev@lists.tizen.org
+
+Build Instructions: 
+
 Following are the recommended steps for building and installing "DNA_FMRadio" with
 the FMRadioExtension extension, FMRadioService dbus daemon and running all of it on target device.
 
