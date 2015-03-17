@@ -844,41 +844,58 @@ bus_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 
             	} else if (gst_structure_has_name (s, "sdrjfmsrc-rds-station-label-clear")) {
 
-                    if (data->rds_clear_cb)
+                    if (data->rds_clear_cb) {
+                        g_print("DEBUG: got rds_clear for RDS_STATION_LABEL\n");
                         data->rds_clear_cb (data, RDS_STATION_LABEL);
+                    }
                 } else if (gst_structure_has_name (s, "sdrjfmsrc-rds-radio-text-clear")) {
 
-                   if (data->rds_clear_cb)
+                   if (data->rds_clear_cb) {
+                       g_print("DEBUG: got rds_clear for RDS_RADIO_TEXT\n");
                        data->rds_clear_cb (data, RDS_RADIO_TEXT);
+                    }
 
                 } else if (gst_structure_has_field_typed (s, "station-label", G_TYPE_STRING)) {
 
                     const gchar *label = gst_structure_get_string (s, "station-label");
                     if (gst_structure_has_name (s, "sdrjfmsrc-rds-station-label-change")) {
 
-                        if (data->rds_change_cb)
+                        if (data->rds_change_cb) {
+                            g_print("DEBUG: got rds_change RDS_STATION_LABEL data: %s\n", label);
                             data->rds_change_cb (data, RDS_STATION_LABEL, label);
+                        }
                     } else if (gst_structure_has_name (s, "sdrjfmsrc-rds-station-label-complete")) {
 
-                        if (data->rds_complete_cb)
+                        if (data->rds_complete_cb) {
+                            g_print("DEBUG: got rds_complete RDS_STATION_LABEL data: %s\n", label);
                             data->rds_complete_cb (data, RDS_STATION_LABEL, label);
+                        }
                     }
                 } else if (gst_structure_has_field_typed (s, "radio-text", G_TYPE_STRING)) {
 
                     const gchar *text = gst_structure_get_string (s, "radio-text");
                     if (gst_structure_has_name (s, "sdrjfmsrc-rds-radio-text-change")) {
-                        if (data->rds_change_cb)
+                        if (data->rds_change_cb) {
+                            g_print("DEBUG: got rds_change RDS_RADIO_TEXT data: %s\n", text);
                             data->rds_change_cb (data, RDS_RADIO_TEXT, text);
+                        }
                     } else if (gst_structure_has_name (s, "sdrjfmsrc-rds-radio-text-complete")) {
-                        if (data->rds_complete_cb)
+                        if (data->rds_complete_cb) {
+                            g_print("DEBUG: got rds_complete RDS_RADIO_TEXT data: %s\n", text);
                             data->rds_complete_cb (data, RDS_RADIO_TEXT, text);
+                        }
                     }
                 }
             }
         break;
 
         case GST_MESSAGE_ERROR:
-            gst_message_parse_error (message, &error, NULL);
+            gchar *dbg_info = NULL;
+            gst_message_parse_error (message, &error, &dbg_info);
+            g_print("%s\n", gst_object_get_name(GST_MESSAGE_SRC(message)));
+            g_printerr ("Debugging info: %s\n", (dbg_info) ? dbg_info :"none");
+            g_error_free(error);
+            g_free (dbg_info);
 	    GST_WARNING ("Error from bus: %s", error->message);
         break;
 
