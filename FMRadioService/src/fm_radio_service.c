@@ -890,6 +890,7 @@ bus_cb (GstBus *bus, GstMessage *message, gpointer user_data)
         break;
 
         case GST_MESSAGE_ERROR:
+        {
             gchar *dbg_info = NULL;
             gst_message_parse_error (message, &error, &dbg_info);
             g_print("%s\n", gst_object_get_name(GST_MESSAGE_SRC(message)));
@@ -897,6 +898,7 @@ bus_cb (GstBus *bus, GstMessage *message, gpointer user_data)
             g_error_free(error);
             g_free (dbg_info);
 	    GST_WARNING ("Error from bus: %s", error->message);
+		}
         break;
 
         case GST_MESSAGE_WARNING:

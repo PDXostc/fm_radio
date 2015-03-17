@@ -141,8 +141,16 @@ bus_cb (GstBus *bus, GstMessage *message, gpointer user_data)
       break;
 
     case GST_MESSAGE_ERROR:
-      gst_message_parse_error (message, &error, NULL);
-      g_assert_no_error (error);
+      //gst_message_parse_error (message, &error, NULL);
+      //g_assert_no_error (error);
+		  gst_message_parse_error (message, &error, NULL);
+		  if (error) {
+			gchar *dbg_info = NULL;
+			g_print("%s\n", gst_object_get_name(GST_MESSAGE_SRC(message)));
+			g_printerr ("Debugging info: %s\n", (dbg_info) ? dbg_info : "none");
+			g_free (dbg_info);
+		  }
+		  g_assert_no_error (error);
       break;
 
     case GST_MESSAGE_WARNING:
