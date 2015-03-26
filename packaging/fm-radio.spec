@@ -17,7 +17,6 @@ Requires: pkgmgr-server
 Requires: model-config-ivi
 Requires: tizen-middleware-units
 Requires: tizen-platform-config
-Requires: agl_app_suite
 Requires: fm_radio-plugins
 
 %global app_list DNA_FMRadio
