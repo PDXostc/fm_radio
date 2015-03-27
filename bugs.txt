@@ -1,4 +1,7 @@
 LIST OF KNOWN BUGS
 ==============================================================================
 
+Bar Graph display will sometimes appear behind number pad
+Presents are hilighted after being saved and should not be.
+
 No known bugs at this time.
