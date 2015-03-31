@@ -1,4 +1,4 @@
-PROJECT = DNA_FMRADIO
+PROJECT = JLRPOCX004.DNA_FMRadio
 INSTALL_FILES = images js icon.png index.html
 WRT_FILES = DNA_common css icon.png index.html setup config.xml js manifest.json images fonts
 VERSION := 0.0.1
@@ -38,13 +38,13 @@ run.feb1: install.feb1
 install.feb1: deploy
 ifndef OBS
 	-ssh app@$(TIZEN_IP) "pkgcmd -u -n JLRPOCX004.FMRadio -q"
-	ssh app@$(TIZEN_IP) "pkgcmd -i -t wgt -p /home/app/DNA_FMRADIO.wgt -q"
+	ssh app@$(TIZEN_IP) "pkgcmd -i -t wgt -p /home/app/JLRPOCX004.DNA_FMRadio.wgt -q"
 endif
 
 install_obs:
 	@echo "Installing $(PROJECT), stand by..."
 	mkdir -p $(DESTDIR)/opt/usr/apps/.preinstallWidgets
-	cp DNA_FMRADIO.wgt $(DESTDIR)/opt/usr/apps/.preinstallWidgets
+	cp JLRPOCX004.DNA_FMRadio.wgt $(DESTDIR)/opt/usr/apps/.preinstallWidgets
 
 debug: install
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -d 9888"
@@ -52,7 +52,7 @@ debug: install
 
 install: deploy
 	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl | egrep -e 'FMRADIO' | awk '{print $1}' | xargs --no-run-if-empty xwalkctl -u"
-	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/DNA_FMRADIO.wgt"
+	ssh app@$(TIZEN_IP) "export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/5000/dbus/user_bus_socket' && xwalkctl -i /home/app/JLRPOCX004.DNA_FMRadio.wgt"
 
 $(PROJECT).wgt : wgt
 

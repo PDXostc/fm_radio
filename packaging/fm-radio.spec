@@ -37,12 +37,12 @@ done
 make -C DNA_FMRadio "OBS=1" install_obs DESTDIR="%{?buildroot}"
 
 %post
-su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/DNA_FMRadio -q"
+su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX004.DNA_FMRadio -q"
 
 %postun
 su app -c "pkgcmd -u -n JLRPOCX004.DNA_FMRadio -q"
 
 %files
 %defattr(-,root,root,-)
-/opt/usr/apps/.preinstallWidgets/DNA_FMRADIO.wgt
+/opt/usr/apps/.preinstallWidgets/JLRPOCX004.DNA_FMRadio.wgt
 
