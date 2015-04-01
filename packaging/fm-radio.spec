@@ -11,6 +11,8 @@ BuildRequires:  zip
 BuildRequires:  desktop-file-utils
 
 Requires: pkgmgr
+Requires: ail
+Requires: aul
 Requires: crosswalk
 Requires: tizen-extensions-crosswalk
 Requires: pkgmgr-server
@@ -37,7 +39,7 @@ done
 make -C DNA_FMRadio "OBS=1" install_obs DESTDIR="%{?buildroot}"
 
 %post
-su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX004.DNA_FMRadio -q"
+#su app -c "pkgcmd -i -t wgt -p /opt/usr/apps/.preinstallWidgets/JLRPOCX004.DNA_FMRadio -q"
 
 %postun
 su app -c "pkgcmd -u -n JLRPOCX004.DNA_FMRadio -q"
